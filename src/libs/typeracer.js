@@ -104,7 +104,7 @@ class TypeRacer {
 
             this.winners.forEach(async(winner, i) => {
                 frase = `${frase}${i == 0 ? "**--Ganadores--**\n" : ""}${i + 1}- <@${winner.userId}> con el tiempo de: **${winner.timeToWin}ms**\n`;
-                if (participantsRace > 1) {
+                if (participantsRace > 0) { //cambiado por 1
                     let actualUserScoreDb = await dataBaseRacer.getAllScores(msg.author.id)
                     let ratioDb = await dataBaseRace.getWinsAndLosses(msg.author.id)
                     dataBaseRacer.updateScore(winner.userId, this.quote[this.randIndex].split('').length, winner.timeToWin,ratioDb, actualUserScoreDb)
@@ -118,7 +118,7 @@ class TypeRacer {
             });
 
             msg.channel.send(frase == "" ? "💔 💔 💔 Nadie lo consiguio 💔 💔 💔" : frase);
-            if (participantsRace < 1) {
+            if (participantsRace < 0) { //modificado estaba en 1
                 msg.channel.send(`Recuerda que solo puntua si compiten 2 o mas personas`)
             }
 

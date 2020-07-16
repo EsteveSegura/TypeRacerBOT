@@ -12,12 +12,33 @@ async function getWinsAndLosses(id) {
     console.log(findRacer)
     let wins = 1;
     let losses = 1;
-    findRacer.forEach((race) => {
-        if (race.racers.length != 0) {
-            console.log("ADD")
-            race.racers.forEach((el) => { el.isWinner ? wins++ : losses++ });
+    for (let i = 0; i < findRacer.length; i++)
+    {
+        let racerTemp = findRacer[i]._doc.racers;
+        for (let r = 0; r < racerTemp.length; r++)
+        {
+            if (racerTemp[r]._doc.isWinner === true)
+            {
+                wins++;
+            }
+            else
+            {
+                losses++;
+            }
+
+
         }
-    })
+
+
+    }
+
+
+    // findRacer.forEach((race) => {
+    //     if (race.racers.length != 0) {
+    //         console.log("ADD")
+    //         race.racers.forEach((el) => { el.isWinner ? wins++ : losses++ });
+    //     }
+    // })
     console.log(wins)
     console.log(losses)
     let windAndLosses = (wins / losses);

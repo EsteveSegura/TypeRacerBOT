@@ -40,7 +40,8 @@ function userAnswer(newRace, msg) {
 }
 
 async function addWord(msg, foundLang) {
-    if (!msg.member.hasPermission("ADMINISTRATOR")) {
+    //jl. modificado para que solo admin
+    if (msg.member.hasPermission("ADMINISTRATOR")) {
         if (foundLang.length > 0) {
             let wordToAdd = msg.content.toLowerCase().replace(`!addword ${foundLang[0].toLowerCase()} `, "")
             let addToDb = await dataBaseWord.addNewWord({ 'lang': foundLang[0], 'word': wordToAdd })

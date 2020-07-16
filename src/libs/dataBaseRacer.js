@@ -1,4 +1,4 @@
-const racer = require('../models/racer');
+const racer = require('../models/racer') //require('.. /models/racer');
 const socreUtils = require('../utils/score');
 
 async function addNewRacer(id) {
@@ -18,17 +18,18 @@ async function updateScore(id, lengthPhrase, ms, ratio, windAndLosses) {
     'globalSocre' : {type: Number, default: 0}
     */
 
-    console.log(updatingScore)
+    console.log(updatingScore.ok)
 }
 
 async function getAllScores(id) {
-    let racer_ = await racer.findOne({ id: id });
-    if(racer_.allScores.length == 0){
+    let racer_ = await racer.findOne({ id: id }).exec();
+    // if(racer_.allScores.length === 0) {
+    if(racer_._doc.allScores.length === 0){
 
         return 1
     }else{
-        let allScoresComuted = racer_.allScores.reduce((prev, current) => current += prev)
-        let avg = allScoresComuted / racer_.allScores.length;
+        let allScoresComuted = racer_._doc.allScores.reduce((prev, current) => current += prev)
+        let avg = allScoresComuted / racer_._doc.allScores.length;
         return isNaN(avg) ? 1 : avg
     }
 }
