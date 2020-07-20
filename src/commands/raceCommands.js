@@ -17,7 +17,7 @@ async function typeRaceCommand(newRace, msg, foundLang) {
 
         msgRacer.edit(newRace.getQuote().ofuscated)
         newRace.setStartDate()
-        newRace.showLadder(msg)
+        await newRace.showLadder(msg)
     }
 }
 

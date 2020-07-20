@@ -9,39 +9,30 @@ const raceCommands = require('./commands/raceCommands');
 const listRace = require('./libs/listRace');
 const dataBaseRacer = require('./libs/dataBaseRacer')
 const dataBaseRace = require('./libs/dataBaseRace');
-const { configDic } = require('./secure/config');
-    //"212729336036458496"
 
 //ToDo:
 // 1- Calc the loss points
 
-// mongoose.connect('mongodb://localhost/typerace', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-//     console.log("DataBase: OK")
-// })
-
-mongoose.connect(configDic.DATABASE_SERVICE + configDic.USUARIO + ":" + configDic.PASSWORD + configDic.DATABASE_URI + configDic.DATABASENAME, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }).then(() => {
+mongoose.connect('mongodb://localhost/typerace', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log("DataBase: OK")
 })
 
 
-client.on('ready', function() {
+client.on('ready', function () {
     console.log("TypeRacer: OK ");
 });
 
-client.on('guildMemberAdd', async(member) => {
+client.on('guildMemberAdd', async (member) => {
     dataBaseRacer.addNewRacer(member.user.id)
 })
 
-client.on('guildCreate', async(guild) => {
-    guild.members.cache.forEach(async(member) => {
+client.on('guildCreate', async (guild) => {
+    guild.members.cache.forEach(async (member) => {
         dataBaseRacer.addNewRacer(member.user.id)
     });
 })
 
-client.on('message', async(msg) => {
+client.on('message', async (msg) => {
     let findActiveRace = listRace.findRace(listRace.races, msg.channel.id);
     let msgSplit = msg.content.split(" ");
 
@@ -50,7 +41,6 @@ client.on('message', async(msg) => {
     })
 
     //commands
-
     if (msg.content === 'how to embed') {
         const embed = new MessageEmbed().setTitle('A slick little embed').setColor(0xff0000).setDescription('Hello, this is a slick embed!');
         msg.channel.send(embed);

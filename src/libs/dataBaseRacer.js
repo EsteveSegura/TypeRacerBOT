@@ -25,11 +25,12 @@ async function getAllScores(id) {
     let racer_ = await racer.findOne({ id: id }).exec();
     // if(racer_.allScores.length === 0) {
     if(racer_._doc.allScores.length === 0){
-
-        return 1
+        return NaN
     }else{
         let allScoresComuted = racer_._doc.allScores.reduce((prev, current) => current += prev)
+        console.log(allScoresComuted + " *")
         let avg = allScoresComuted / racer_._doc.allScores.length;
+        console.log(avg + " -")
         return isNaN(avg) ? 1 : avg
     }
 }

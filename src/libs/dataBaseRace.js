@@ -10,39 +10,25 @@ async function addNewRace(obj) {
 async function getWinsAndLosses(id) {
     let findRacer = await race.find({ "racers.id": id }).exec();
     console.log(findRacer)
-    let wins = 1;
-    let losses = 1;
-    for (let i = 0; i < findRacer.length; i++)
-    {
+    let wins = 0;
+    let losses = 0;
+    for (let i = 0; i < findRacer.length; i++) {
         let racerTemp = findRacer[i]._doc.racers;
-        for (let r = 0; r < racerTemp.length; r++)
-        {
-            if (racerTemp[r]._doc.isWinner === true)
-            {
+        console.log(racerTemp)
+        for (let r = 0; r < racerTemp.length; r++) {
+            if (racerTemp[r]._doc.isWinner === true) {
                 wins++;
             }
-            else
-            {
+            else {
                 losses++;
             }
-
-
         }
-
-
     }
 
-
-    // findRacer.forEach((race) => {
-    //     if (race.racers.length != 0) {
-    //         console.log("ADD")
-    //         race.racers.forEach((el) => { el.isWinner ? wins++ : losses++ });
-    //     }
-    // })
     console.log(wins)
     console.log(losses)
     let windAndLosses = (wins / losses);
-    return windAndLosses;
+    return wins === 0 || losses === 0 ? 0 : windAndLosses;
 }
 
 module.exports = { addNewRace, getWinsAndLosses }
