@@ -24,7 +24,7 @@ async function getWinsAndLosses(id) {
     }
 
     let windAndLosses = (wins / losses);
-    return wins === 0 || losses === 0 ? 0 : windAndLosses;
+    return wins === 0 || losses === 0 ? 0 : windAndLosses.toFixed(2);
 }
 
 module.exports = { addNewRace, getWinsAndLosses }

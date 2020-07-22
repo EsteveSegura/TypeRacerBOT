@@ -57,7 +57,7 @@ client.on('message', async (msg) => {
         const embedScore = new MessageEmbed()
             .setTitle(`Scores from : ${msg.author.username}`)
             .setColor(0xff3e00)
-            .addFields({ name: 'Ratio', value: `*${await dataBaseRace.getWinsAndLosses(msg.author.id)}*`, inline: true }, { name: 'Score', value: `*${await dataBaseRacer.getAllScores(msg.author.id)}*`, inline: true }, { name: 'GlobaScore', value: `__**${(actualUserScore / ratio)}**__` })
+            .addFields({ name: 'Ratio', value: `*${await dataBaseRace.getWinsAndLosses(msg.author.id)}*`, inline: true }, { name: 'Score', value: `*${await dataBaseRacer.getAllScores(msg.author.id)}*`, inline: true }, { name: 'GlobaScore', value: `__**${(actualUserScore / ratio).toFixed(2)}**__` })
             .setTimestamp()
             .setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
         msg.channel.send(embedScore)

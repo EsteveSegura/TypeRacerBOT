@@ -64,7 +64,7 @@ async function showLadderBoard(msg,client) {
     for (let i = 0; i < 10; i++) {
         let userNickName = client.guilds.cache.get(msg.guild.id).members.cache.get(firstElements[i].id).user.username
         console.log(userNickName)
-        dataToShow.push({ name:`${i+1} - ${userNickName}`, value: firstElements[i].globalScore, inline: true  })
+        dataToShow.push({ name:`${i+1} - ${userNickName}`, value: firstElements[i].globalScore.toFixed(2), inline: true  })
     }
     console.log(dataToShow)
     const embedScore = new MessageEmbed()

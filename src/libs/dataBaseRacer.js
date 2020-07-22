@@ -28,7 +28,7 @@ async function getAllScores(id) {
     }else{
         let allScoresComuted = racer_._doc.allScores.reduce((prev, current) => current += prev)
         let avg = allScoresComuted / racer_._doc.allScores.length;
-        return isNaN(avg) ? 1 : avg
+        return isNaN(avg) ? 1 : avg.toFixed(2)
     }
 }
 
