@@ -1,10 +1,12 @@
 const asyncUtils = require('../utils/async');
 const stringsUtils = require('../utils/strings')
 const dataBaseWord = require('../libs/dataBaseWord')
+const dataBaseRacer = require('../libs/dataBaseRacer')
+const MessageEmbed = require('discord.js').MessageEmbed;
 const semafro = ['🟢', '🟡', '🔴']
 
 async function typeRaceCommand(newRace, msg, foundLang) {
-    if (!newRace.gameStatus && newRace ) {
+    if (!newRace.gameStatus && newRace) {
         let msgRacer = await msg.channel.send(`Preparados! Sustituye las "_" por espacios " "`)
         await newRace.initGame(foundLang.length > 0 ? foundLang[0] : "ENG")
 
@@ -28,7 +30,7 @@ function userAnswer(newRace, msg) {
 
     //ToDo: Join in one function
     if (newRace.getQuote().raw == msg.content) {
-        msg.react( '👍')
+        msg.react('👍')
         newRace.addWinner({ 'userId': msg.author.id, timeToWin: timeOnRespond.toString() })
     }
 
@@ -50,9 +52,28 @@ async function addWord(msg, foundLang) {
             msg.react('😵')
             msg.reply(`Sintaxis incorrecta. Ej: **!addWord <language> <text>**`)
         }
-    }else{
+    } else {
         msg.reply(`Por el momento solo los administradores pueden añadir frases.`)
     }
 }
 
-module.exports = { typeRaceCommand, userAnswer, addWord }
+async function showLadderBoard(msg,client) {
+    let firstElements = await dataBaseRacer.getGlobalScoreBoard();
+    let dataToShow = []
+    
+    for (let i = 0; i < 10; i++) {
+        let userNickName = client.guilds.cache.get(msg.guild.id).members.cache.get(firstElements[i].id).user.username
+        console.log(userNickName)
+        dataToShow.push({ name:`${i+1} - ${userNickName}`, value: firstElements[i].globalScore, inline: true  })
+    }
+    console.log(dataToShow)
+    const embedScore = new MessageEmbed()
+        .setTitle("GLOBAL LADDER BOARD")
+        .setColor(0xff3e00)
+        .addFields(dataToShow)
+        .setTimestamp()
+        .setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
+    msg.channel.send(embedScore)
+}
+
+module.exports = { typeRaceCommand, userAnswer, addWord,showLadderBoard }

@@ -40,6 +40,10 @@ client.on('message', async (msg) => {
         if (lang == msgSplit[1]) { return lang }
     })
 
+    if (msg.content === 'debug') {
+        console.log(await raceCommands.showLadderBoard(msg,client))
+    }
+
     //commands
     if (msg.content === 'how to embed') {
         const embed = new MessageEmbed().setTitle('A slick little embed').setColor(0xff0000).setDescription('Hello, this is a slick embed!');
@@ -50,7 +54,6 @@ client.on('message', async (msg) => {
     if (msg.content.toLowerCase() == "!comando") {
         let actualUserScore = await dataBaseRacer.getAllScores(msg.author.id)
         let ratio = await dataBaseRace.getWinsAndLosses(msg.author.id)
-        console.log(await dataBaseRacer.getAllScores(msg.author.id))
         const embedScore = new MessageEmbed()
             .setTitle(`Scores from : ${msg.author.username}`)
             .setColor(0xff3e00)

@@ -18,7 +18,6 @@ async function updateScore(id, lengthPhrase, ms, ratio, windAndLosses) {
     'globalSocre' : {type: Number, default: 0}
     */
 
-    console.log(updatingScore.ok)
 }
 
 async function getAllScores(id) {
@@ -28,16 +27,14 @@ async function getAllScores(id) {
         return NaN
     }else{
         let allScoresComuted = racer_._doc.allScores.reduce((prev, current) => current += prev)
-        console.log(allScoresComuted + " *")
         let avg = allScoresComuted / racer_._doc.allScores.length;
-        console.log(avg + " -")
         return isNaN(avg) ? 1 : avg
     }
 }
 
-async function getScoreBoard(id) {
-    let allRacers = await racer.find({})
-
+async function getGlobalScoreBoard() {
+    let allRacers = await racer.find({}).sort([['globalScore', -1]])
+    return allRacers
 }
 
 async function getRacer(id) {
@@ -45,4 +42,4 @@ async function getRacer(id) {
     return !findRacer ? null : findRacer;
 }
 
-module.exports = { addNewRacer, updateScore, getRacer, getAllScores }
+module.exports = { addNewRacer, updateScore, getRacer, getAllScores, getGlobalScoreBoard }
