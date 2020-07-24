@@ -117,7 +117,6 @@ class TypeRacer {
             });
 
 
-            console.log(participantsRace )
             msg.channel.send(frase == "" ? "💔 💔 💔 Nadie lo consiguio 💔 💔 💔" : participantsRace == 1 ? "Recuerda que solo puntua si compiten 2 o mas personas" : frase);
 
             await this.saveToDataBase(this.dataStructuredToDb);

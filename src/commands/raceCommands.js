@@ -63,16 +63,15 @@ async function showLadderBoard(msg,client) {
     
     for (let i = 0; i < 10; i++) {
         let userNickName = client.guilds.cache.get(msg.guild.id).members.cache.get(firstElements[i].id).user.username
-        console.log(userNickName)
         dataToShow.push({ name:`${i+1} - ${userNickName}`, value: firstElements[i].globalScore.toFixed(2), inline: true  })
     }
-    console.log(dataToShow)
+
     const embedScore = new MessageEmbed()
         .setTitle("GLOBAL LADDER BOARD")
         .setColor(0xff3e00)
         .addFields(dataToShow)
         .setTimestamp()
-        .setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
+        .setFooter('Made with <3 GiR');
     msg.channel.send(embedScore)
 }
 

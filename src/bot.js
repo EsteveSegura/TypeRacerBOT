@@ -40,18 +40,8 @@ client.on('message', async (msg) => {
         if (lang == msgSplit[1]) { return lang }
     })
 
-    if (msg.content === 'debug') {
-        console.log(await raceCommands.showLadderBoard(msg,client))
-    }
-
     //commands
-    if (msg.content === 'how to embed') {
-        const embed = new MessageEmbed().setTitle('A slick little embed').setColor(0xff0000).setDescription('Hello, this is a slick embed!');
-        msg.channel.send(embed);
-    }
-
-
-    if (msg.content.toLowerCase() == "!comando") {
+    if (msg.content.toLowerCase() == "!stats") {
         let actualUserScore = await dataBaseRacer.getAllScores(msg.author.id)
         let ratio = await dataBaseRace.getWinsAndLosses(msg.author.id)
         const embedScore = new MessageEmbed()
@@ -59,10 +49,11 @@ client.on('message', async (msg) => {
             .setColor(0xff3e00)
             .addFields({ name: 'Ratio', value: `*${await dataBaseRace.getWinsAndLosses(msg.author.id)}*`, inline: true }, { name: 'Score', value: `*${await dataBaseRacer.getAllScores(msg.author.id)}*`, inline: true }, { name: 'GlobaScore', value: `__**${(actualUserScore / ratio).toFixed(2)}**__` })
             .setTimestamp()
-            .setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
+            .setFooter('Made with <3 GiR');
         msg.channel.send(embedScore)
     }
 
+    /*
     if (msg.content.toLowerCase() == "!ratio") {
         let ratio = await dataBaseRace.getWinsAndLosses(msg.author.id)
         msg.reply(ratio)
@@ -72,7 +63,7 @@ client.on('message', async (msg) => {
         let actualUserScore = await dataBaseRacer.getAllScores(msg.author.id)
         msg.channel.send(actualUserScore)
     }
-
+    */
     if (msg.content.toLowerCase().startsWith("!typerace")) {
         listRace.races = listRace.removeFinishedRaces(listRace.races)
         if (findActiveRace == null || findActiveRace.finished) {
